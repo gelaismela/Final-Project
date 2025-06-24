@@ -1,0 +1,104 @@
+/* Container for the entire navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Raleway", sans-serif;
+
+  padding: 8px 16px;
+}
+
+/* Left side: Category links */
+.navbar-categories {
+  display: flex;
+}
+
+.navbar-categories a {
+  color: #1d1f22;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  font-weight: 400;
+  font-size: 16px;
+  text-transform: uppercase;
+
+  padding: 8px 16px;
+}
+
+.category-link {
+  display: flex;
+  align-items: center;
+}
+
+.category-link:hover {
+  border-color: #5ece7b;
+}
+
+.category-link.active {
+  color: #5ece7b;
+  font-weight: 600;
+  border-bottom: 4px solid #5ece7b;
+}
+
+/* Center: Logo */
+.navbar-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.navbar-logo a {
+  text-decoration: none;
+  color: #111;
+}
+
+/* Right side: Currency picker and cart */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.currency-selector {
+  padding: 6px 12px;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  appearance: none; /* removes default arrow on some browsers */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+/* Optional: make sure the dropdown opens normally */
+.currency-selector option {
+  font-size: 1rem;
+}
+
+/* Cart icon */
+.cart-icon {
+  font-size: 1.4rem;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cart-icon {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  pointer-events: none; /* so badge doesn’t block clicks */
+}
