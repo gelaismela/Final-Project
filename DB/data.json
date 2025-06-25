@@ -70,27 +70,22 @@
   ],
   "cart": [
     {
-      "id": "950b",
+      "id": "9c51",
       "productId": "1",
       "quantity": 1
     },
     {
-      "id": "58c7",
+      "id": "3134",
       "productId": "1",
       "quantity": 1
     },
     {
-      "id": "822b",
-      "productId": "1",
+      "id": "807a",
+      "productId": "3",
       "quantity": 1
     },
     {
-      "id": "4091",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "0680",
+      "id": "fa6d",
       "productId": "1",
       "quantity": 1
     }

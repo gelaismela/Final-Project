@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useCart from "../hooks/UseCart";
 import { Link, NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
+import MiniCart from "./MiniCart"; // Add this import
 
 const NavBar = () => {
   const apiUrl = "http://localhost:8000";
@@ -9,6 +10,8 @@ const NavBar = () => {
 
   const [currency, setCurrency] = useState("usd");
   const [isOpen, setIsOpen] = useState(false);
+  const [miniCartOpen, setMiniCartOpen] = useState(false);
+  const cartRef = useRef(null);
 
   const getSymbol = (code) => {
     switch (code) {
@@ -22,6 +25,17 @@ const NavBar = () => {
         return "$";
     }
   };
+
+  useEffect(() => {
+    if (!miniCartOpen) return;
+    const handleClick = (e) => {
+      if (cartRef.current && !cartRef.current.contains(e.target)) {
+        setMiniCartOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [miniCartOpen]);
 
   return (
     <div className="navbar">
@@ -66,14 +80,23 @@ const NavBar = () => {
             />
           </div>
         </div>
-
-        <div className="navbar-cart">
-          <Link to="/cart">
-            <div className="cart-icon">
-              <img src="/photos/Cart.svg" alt="Cart" />
-              <span className="cart-badge">{cartCount}</span>
-            </div>
-          </Link>
+        <div
+          className="navbar-cart"
+          style={{ position: "relative" }}
+          ref={cartRef}
+        >
+          <div
+            className="cart-icon"
+            onClick={() => setMiniCartOpen((open) => !open)}
+            style={{ cursor: "pointer" }}
+          >
+            <img src="/photos/Cart.svg" alt="Cart" />
+            <span className="cart-badge">{cartCount}</span>
+          </div>
+          <MiniCart
+            open={miniCartOpen}
+            onClose={() => setMiniCartOpen(false)}
+          />
         </div>
       </div>
     </div>
