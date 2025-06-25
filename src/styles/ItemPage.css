@@ -28,6 +28,7 @@
 .ItemPage-Thumbnail img {
   width: 80px;
   height: 80px;
+
   object-fit: cover;
   cursor: pointer;
 }

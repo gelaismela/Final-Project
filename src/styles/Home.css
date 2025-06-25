@@ -13,6 +13,17 @@
   max-width: 1200px; /* Optional: constrain layout on large screens */
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(80, 80, 80, 0.4); /* semi-transparent grey */
+  z-index: 1000;
+  pointer-events: all;
+}
+
 .home .home-header {
   text-transform: uppercase;
 }
@@ -60,8 +71,8 @@
 /* Product image */
 
 .product-image {
-  width: 100%;
-
+  msx-width: 350px; /* Ensure image doesn't exceed card width */
+  max-height: 330px; /* Limit height to prevent overflow */
   object-fit: cover;
   border-radius: 6px;
 }

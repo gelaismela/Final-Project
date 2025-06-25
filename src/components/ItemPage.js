@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/UseFetch";
-import useCart from "../hooks/UseCart";
 import "../styles/ItemPage.css";
 import NavBar from "./Navbar";
+import { useCurrency } from "../context/CurrencyContext";
+import { useCartContext } from "../context/CartContext"; // <-- Import global cart context
+
+const currencyData = {
+  usd: { symbol: "$", rate: 1 },
+  eur: { symbol: "€", rate: 0.92 },
+  gel: { symbol: "₾", rate: 2.7 },
+};
+
+function convertPrice(price, currency) {
+  const { rate } = currencyData[currency] || currencyData.usd;
+  return price * rate;
+}
 
 const SingleItemPage = () => {
   const { id } = useParams();
   const apiUrl = "http://localhost:8000";
-  const { addItem, error: cartError } = useCart(apiUrl);
+  const { addItem, error: cartError } = useCartContext(); // <-- Use global context
 
   const {
     data: product,
@@ -17,9 +29,11 @@ const SingleItemPage = () => {
   } = useFetch(`${apiUrl}/products/${id}`);
 
   const [selectedSize, setSelectedSize] = useState(null);
+  const { currency } = useCurrency();
+  const symbol = currencyData[currency]?.symbol || "$";
 
   const handleAddToCartClick = () => {
-    addItem(product.id, 1);
+    addItem(product.id, 1); // <-- Use global addItem
   };
 
   if (isPending) return <div>Loading product...</div>;
@@ -66,7 +80,9 @@ const SingleItemPage = () => {
 
             <div className="Description-Second">
               <div className="ItemPage-Price">
-                <p>Price:</p>${product.price.toFixed(2)}
+                <p>Price:</p>
+                {symbol}
+                {convertPrice(product.price, currency).toFixed(2)}
               </div>
 
               <button

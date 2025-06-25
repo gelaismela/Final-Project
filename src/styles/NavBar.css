@@ -54,42 +54,26 @@
 
 .currency-selector-wrapper {
   position: relative;
-  width: 60px;
+  width: 36px;
   height: 36px;
 }
 
-.currency-selector {
+.currency-selector-btn {
   width: 100%;
   height: 100%;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  font: inherit;
+  color: inherit;
   cursor: pointer;
-  z-index: 2;
-}
-
-.currency-selector option {
-  background-color: white;
-  width: 200px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: #333;
-  border-radius: 0;
-}
-
-.currency-display {
-  font-family: "Roboto", sans-serif;
-
-  font-size: 18px;
-  font-weight: 400;
-  width: 100%;
-  height: 100%;
+  text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 10px;
-  pointer-events: none;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 /* Cart icon */

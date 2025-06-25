@@ -12,7 +12,7 @@
       "gender": "men",
       "quantity": 5,
       "price": 19.99,
-      "photo": "/photos/greyshirt.png"
+      "photo": "/photos/grey-shirt.png"
     },
     {
       "id": "2",
@@ -26,7 +26,7 @@
       "gender": "men",
       "quantity": 0,
       "price": 39.99,
-      "photo": "/photos/slim-fit-jeans.jpg"
+      "photo": "/photos/slim-fit-jeans.png"
     },
     {
       "id": "3",
@@ -39,7 +39,7 @@
       "gender": "women",
       "quantity": 12,
       "price": 49.99,
-      "photo": "/photos/floral-dress.jpg"
+      "photo": "/photos/summer-dress.jpg"
     },
     {
       "id": "4",
@@ -52,7 +52,7 @@
       "gender": "kids",
       "quantity": 30,
       "price": 24.99,
-      "photo": "/photos/kids-hoodie.jpg"
+      "photo": "/photos/kids-hoodie.png"
     },
     {
       "id": "5",
@@ -65,28 +65,93 @@
       "gender": "women",
       "quantity": 8,
       "price": 89.99,
-      "photo": "/photos/leather-jacket.jpg"
+      "photo": "/photos/leather-jacket.png"
     }
   ],
   "cart": [
     {
-      "id": "9c51",
+      "id": "7c26",
       "productId": "1",
       "quantity": 1
     },
     {
-      "id": "3134",
+      "id": "2a80",
       "productId": "1",
       "quantity": 1
     },
     {
-      "id": "807a",
+      "id": "e700",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "f386",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "9526",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "e6e0",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "794b",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "6ff3",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "98c1",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "cd72",
       "productId": "3",
       "quantity": 1
     },
     {
-      "id": "fa6d",
+      "id": "d0ee",
+      "productId": "3",
+      "quantity": 1
+    },
+    {
+      "id": "85e6",
       "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "d499",
+      "productId": "5",
+      "quantity": 1
+    },
+    {
+      "id": "b1dc",
+      "productId": "4",
+      "quantity": 1
+    },
+    {
+      "id": "f062",
+      "productId": "3",
+      "quantity": 1
+    },
+    {
+      "id": "9d9b",
+      "productId": "3",
+      "quantity": 1
+    },
+    {
+      "id": "c43a",
+      "productId": "3",
       "quantity": 1
     }
   ]

@@ -1,8 +1,21 @@
 import React, { useState } from "react";
-import useCart from "../hooks/UseCart";
 import useFetch from "../hooks/UseFetch";
 import "../styles/Cart.css";
 import NavBar from "./Navbar";
+import { useCurrency } from "../context/CurrencyContext";
+import { useCartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom"; // <-- Add this import
+
+const currencyData = {
+  usd: { symbol: "$", rate: 1 },
+  eur: { symbol: "€", rate: 0.92 },
+  gel: { symbol: "₾", rate: 2.7 },
+};
+
+function convertPrice(price, currency) {
+  const { rate } = currencyData[currency] || currencyData.usd;
+  return price * rate;
+}
 
 const Cart = () => {
   const apiUrl = "http://localhost:8000";
@@ -12,7 +25,7 @@ const Cart = () => {
     error: cartError,
     addItem,
     deleteItem,
-  } = useCart(apiUrl);
+  } = useCartContext();
   const {
     data: products,
     isPending,
@@ -20,6 +33,8 @@ const Cart = () => {
   } = useFetch(`${apiUrl}/products`);
 
   const [selectedSizes, setSelectedSizes] = useState({});
+  const { currency } = useCurrency();
+  const navigate = useNavigate(); // <-- Add this
 
   if (isPending) return <div>Loading...</div>;
   if (fetchError || cartError)
@@ -44,7 +59,7 @@ const Cart = () => {
     .filter(Boolean);
 
   const totalPrice = cartWithDetails
-    .reduce((sum, item) => sum + item.total, 0)
+    .reduce((sum, item) => sum + convertPrice(item.total, currency), 0)
     .toFixed(2);
 
   const handleSizeClick = (productId, size) => {
@@ -52,6 +67,20 @@ const Cart = () => {
       ...prev,
       [productId]: size,
     }));
+  };
+
+  const symbol = currencyData[currency]?.symbol || "$";
+
+  // Check if all items have a selected size
+  const allSizesSelected =
+    cartWithDetails.length > 0 &&
+    cartWithDetails.every((item) => selectedSizes[item.id]);
+
+  const handleContinue = () => {
+    if (allSizesSelected) {
+      // Optionally: Save selectedSizes to context or localStorage if needed for later steps
+      navigate("/shippingInfo");
+    }
   };
 
   return (
@@ -65,7 +94,10 @@ const Cart = () => {
             <h3>{item.name}</h3>
             <h4>{item.gender}</h4>
 
-            <div className="cart-item-price">${item.price.toFixed(2)}</div>
+            <div className="cart-item-price">
+              {symbol}
+              {convertPrice(item.price, currency).toFixed(2)}
+            </div>
 
             <div className="cart-sizes">
               <p>SIZE:</p>
@@ -82,12 +114,18 @@ const Cart = () => {
                   </button>
                 ))}
               </div>
+              {!selectedSizes[item.id] && (
+                <div
+                  className="size-error"
+                  style={{ color: "red", fontSize: 12, padding: "8px 16px" }}
+                >
+                  Please select a size
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Item Preview */}
           <div className="item-preview">
-            {/* Quantity Controls */}
             <div className="quantity-controls">
               <button onClick={() => addItem(item.id, 1)}>+</button>
               <span>{item.quantity}</span>
@@ -103,7 +141,6 @@ const Cart = () => {
               </button>
             </div>
 
-            {/* Product Image */}
             <div className="cart-image">
               <img src={item.photo} alt={item.name} />
             </div>
@@ -116,10 +153,20 @@ const Cart = () => {
           Quantity: <strong>{cartCount}</strong>
         </p>
         <p>
-          Total: <strong>${totalPrice}</strong>
+          Total:{" "}
+          <strong>
+            {symbol}
+            {totalPrice}
+          </strong>
         </p>
 
-        <button className="continue-button">CONTINUE</button>
+        <button
+          className="continue-button"
+          disabled={!allSizesSelected}
+          onClick={handleContinue}
+        >
+          CONTINUE
+        </button>
       </div>
     </div>
   );

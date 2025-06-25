@@ -1,7 +1,24 @@
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
+import { useCurrency } from "../context/CurrencyContext";
+import { useCartContext } from "../context/CartContext"; // 1. Import cart context
 
-const ItemList = ({ products, onAddToCart }) => {
+const currencyData = {
+  usd: { symbol: "$", rate: 1 },
+  eur: { symbol: "€", rate: 0.92 },
+  gel: { symbol: "₾", rate: 2.7 },
+};
+
+function convertPrice(price, currency) {
+  const { rate } = currencyData[currency] || currencyData.usd;
+  return price * rate;
+}
+
+const ItemList = ({ products }) => {
+  const { currency } = useCurrency();
+  const symbol = currencyData[currency]?.symbol || "$";
+  const { addItem } = useCartContext(); // 2. Use addItem from context
+
   return (
     <div className="product-list">
       {products.map((product) => (
@@ -19,7 +36,10 @@ const ItemList = ({ products, onAddToCart }) => {
             />
             <div className="product-description">
               <h2>{product.name}</h2>
-              <p>${product.price.toFixed(2)}</p>
+              <p>
+                {symbol}
+                {convertPrice(product.price, currency).toFixed(2)}
+              </p>
             </div>
           </Link>
 
@@ -31,8 +51,7 @@ const ItemList = ({ products, onAddToCart }) => {
             <button
               className="add-to-cart-btn"
               onClick={() => {
-                console.log("Added to cart:", product);
-                onAddToCart(product);
+                addItem(product.id, 1); // 3. Use global addItem
               }}
             >
               <svg

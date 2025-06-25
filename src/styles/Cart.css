@@ -150,3 +150,11 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.size-options.error {
+  border: 2px solid red;
+  border-radius: 6px;
+  padding: 4px;
+  background: #ffeaea;
+  transition: border 0.2s;
+}

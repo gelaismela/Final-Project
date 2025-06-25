@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import useCart from "../hooks/UseCart";
+import { useCartContext } from "../context/CartContext"; // <-- use context!
 import { Link, NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
-import MiniCart from "./MiniCart"; // Add this import
+import MiniCart from "./MiniCart";
+import MiniCurrencySelector from "./MiniCurrencySelector";
+import { useCurrency } from "../context/CurrencyContext";
+import cartPhoto from "../photos/Cart.svg"; // Import cart icon
+import arrowUp from "../photos/arrowUp.svg"; // Import arrow up icon
+import arrowDown from "../photos/arrowDown.svg"; // Import arrow down icon
+import logo from "../photos/Logo.svg"; // Import logo icon
 
 const NavBar = () => {
-  const apiUrl = "http://localhost:8000";
-  const { cartCount } = useCart(apiUrl);
-
-  const [currency, setCurrency] = useState("usd");
-  const [isOpen, setIsOpen] = useState(false);
+  const { cartCount } = useCartContext(); // <-- use context!
+  const [miniCurrencyOpen, setMiniCurrencyOpen] = useState(false);
   const [miniCartOpen, setMiniCartOpen] = useState(false);
   const cartRef = useRef(null);
+  const { currency, setCurrency } = useCurrency();
 
   const getSymbol = (code) => {
     switch (code) {
@@ -53,32 +57,29 @@ const NavBar = () => {
 
       <div className="navbar-logo">
         <Link to="/">
-          <img src="/photos/Logo.svg" alt="logo" className="logo-icon" />
+          <img src={logo} alt="logo" className="logo-icon" />
         </Link>
       </div>
 
       <div className="navbar-actions">
         <div className="currency-selector-wrapper">
-          <select
-            className="currency-selector"
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
-            onClick={() => setIsOpen(!isOpen)}
-            onBlur={() => setIsOpen(false)}
+          <button
+            className="currency-selector-btn"
+            onClick={() => setMiniCurrencyOpen((open) => !open)}
           >
-            <option value="usd">$ USD</option>
-            <option value="eur">€ EUR</option>
-            <option value="gel">₾ GEL</option>
-          </select>
-
-          <div className="currency-display">
-            <span>{getSymbol(currency)}</span>
+            {getSymbol(currency)}
             <img
-              src={isOpen ? "/photos/arrowUp.svg" : "/photos/arrowDown.svg"}
+              src={miniCurrencyOpen ? arrowUp : arrowDown}
               alt="toggle arrow"
               className="currency-arrow"
             />
-          </div>
+          </button>
+          <MiniCurrencySelector
+            open={miniCurrencyOpen}
+            onClose={() => setMiniCurrencyOpen(false)}
+            onSelect={setCurrency}
+            selected={currency}
+          />
         </div>
         <div
           className="navbar-cart"
@@ -90,8 +91,8 @@ const NavBar = () => {
             onClick={() => setMiniCartOpen((open) => !open)}
             style={{ cursor: "pointer" }}
           >
-            <img src="/photos/Cart.svg" alt="Cart" />
-            <span className="cart-badge">{cartCount}</span>
+            <img src={cartPhoto} alt="Cart" />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </div>
           <MiniCart
             open={miniCartOpen}
