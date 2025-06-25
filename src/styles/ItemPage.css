@@ -1,0 +1,127 @@
+.ItemPage-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Raleway", sans-serif;
+  color: #1d1f22;
+}
+
+.ItemPage-Container > * {
+  width: 100%;
+  max-width: 1200px; /* Optional: constrain layout on large screens */
+}
+
+.ItemPage {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.ItemPage-Thumbnail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.ItemPage-Thumbnail img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.ItemPage-Main {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+}
+
+.ItemPage-Photo img {
+  width: 610px;
+  height: auto;
+}
+
+.ItemPage-Description {
+  max-width: 292px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ItemPage-Name {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+  padding: 8px 16px;
+}
+
+.ItemPage-TypeOfClothe {
+  font-size: 30px;
+  color: #1d1f22;
+  font-weight: 400;
+  margin: 0;
+  padding: 4px 16px;
+}
+
+.ItemPage-Sizes {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.Sizes-Variant {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ItemPage-SizeBtn {
+  width: 63px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ItemPage-SizeBtn.active {
+  background-color: #1d1f22;
+  color: #fff;
+}
+
+.ItemPage-Price {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 16px 16px;
+}
+
+.ItemPage-Price p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.ItemPage-AddToCart {
+  background-color: #5ece7b;
+  color: white;
+  border: none;
+  margin: 16px;
+  padding: 16px;
+  cursor: pointer;
+  width: 90%;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  text-align: center;
+}
+.ItemPage-DescriptionText {
+  font-size: 16px;
+  padding: 8px 16px;
+  font-weight: 400;
+  color: #1d1f22;
+  max-width: 400px;
+  margin: 0;
+}

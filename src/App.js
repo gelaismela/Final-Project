@@ -5,7 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Home from "./Home";
-import ItemPage from "./components/ItemPage";
+import SingleItemPage from "./components/ItemPage";
 import Checkout from "./components/Checkout";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/category/women" />} />
             <Route path="/category/:gender" element={<Home />} />
-            <Route path="/item}" element={<ItemPage />} />
+            <Route path="/products/:id" element={<SingleItemPage />} />
             <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </div>

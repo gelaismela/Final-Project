@@ -1,8 +1,8 @@
 {
   "products": [
     {
-      "id": 1,
-      "name": "Basic White T-Shirt",
+      "id": "1",
+      "name": "Grey Shirt",
       "sizes": [
         "S",
         "M",
@@ -10,12 +10,12 @@
         "XL"
       ],
       "gender": "men",
-      "quantity": 25,
+      "quantity": 5,
       "price": 19.99,
-      "photo": "/photos/white-tshirt.jpg"
+      "photo": "/photos/greyshirt.png"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Slim Fit Jeans",
       "sizes": [
         "28",
@@ -24,12 +24,12 @@
         "34"
       ],
       "gender": "men",
-      "quantity": 15,
+      "quantity": 0,
       "price": 39.99,
       "photo": "/photos/slim-fit-jeans.jpg"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Floral Summer Dress",
       "sizes": [
         "XS",
@@ -42,7 +42,7 @@
       "photo": "/photos/floral-dress.jpg"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Kids Hoodie",
       "sizes": [
         "4T",
@@ -55,7 +55,7 @@
       "photo": "/photos/kids-hoodie.jpg"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Black Leather Jacket",
       "sizes": [
         "M",
@@ -70,18 +70,28 @@
   ],
   "cart": [
     {
-      "id": "19d5",
-      "productId": 4,
+      "id": "950b",
+      "productId": "1",
       "quantity": 1
     },
     {
-      "id": "73d1",
-      "productId": 4,
+      "id": "58c7",
+      "productId": "1",
       "quantity": 1
     },
     {
-      "id": "d2a9",
-      "productId": 5,
+      "id": "822b",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "4091",
+      "productId": "1",
+      "quantity": 1
+    },
+    {
+      "id": "0680",
+      "productId": "1",
       "quantity": 1
     }
   ]

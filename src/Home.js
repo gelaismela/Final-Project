@@ -22,6 +22,15 @@ const Home = () => {
   console.log("Loading:", isPending);
   console.log("Gender param:", gender);
 
+  const formatGenderPossessive = (gender) => {
+    const map = {
+      man: "Men's",
+      woman: "Women's",
+      kid: "Kids'",
+    };
+    return map[gender?.toLowerCase()] || `${gender}'s`;
+  };
+
   // Filter products by gender
   const filteredProducts =
     products?.filter(
@@ -37,6 +46,8 @@ const Home = () => {
   return (
     <div className="home">
       <NavBar />
+      <h1 className="home-header">{formatGenderPossessive(gender)} Clothes</h1>
+
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       {!isPending && filteredProducts.length === 0 && (

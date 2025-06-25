@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react";
 import useCart from "../hooks/UseCart";
-import CartIcon from "../photos/Cart.svg";
-import Logo from "../photos/Logo.svg";
 import { Link, NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
 
 const NavBar = () => {
-  const apiUrl = "http://localhost:8000"; // 👈 Define it here
+  const apiUrl = "http://localhost:8000";
   const { cartCount } = useCart(apiUrl);
+
+  const [currency, setCurrency] = useState("usd");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const getSymbol = (code) => {
+    switch (code) {
+      case "usd":
+        return "$";
+      case "eur":
+        return "€";
+      case "gel":
+        return "₾";
+      default:
+        return "$";
+    }
+  };
 
   return (
     <div className="navbar">
@@ -25,20 +39,42 @@ const NavBar = () => {
 
       <div className="navbar-logo">
         <Link to="/">
-          <img src={Logo} alt="logo" className="logo-icon" />
+          <img src="/photos/Logo.svg" alt="logo" className="logo-icon" />
         </Link>
       </div>
 
       <div className="navbar-actions">
-        <select className="currency-selector">
-          <option value="usd">$ USD</option>
-          <option value="eur">€ EUR</option>
-          <option value="gel">₾ GEL</option>
-        </select>
-        <Link to="/cart">
-          <img src={CartIcon} alt="Cart" className="cart-icon" />
-          {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
-        </Link>
+        <div className="currency-selector-wrapper">
+          <select
+            className="currency-selector"
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            onClick={() => setIsOpen(!isOpen)}
+            onBlur={() => setIsOpen(false)}
+          >
+            <option value="usd">$ USD</option>
+            <option value="eur">€ EUR</option>
+            <option value="gel">₾ GEL</option>
+          </select>
+
+          <div className="currency-display">
+            <span>{getSymbol(currency)}</span>
+            <img
+              src={isOpen ? "/photos/arrowUp.svg" : "/photos/arrowDown.svg"}
+              alt="toggle arrow"
+              className="currency-arrow"
+            />
+          </div>
+        </div>
+
+        <div className="navbar-cart">
+          <Link to="/cart">
+            <div className="cart-icon">
+              <img src="/photos/Cart.svg" alt="Cart" />
+              <span className="cart-badge">{cartCount}</span>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );

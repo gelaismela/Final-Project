@@ -39,15 +39,10 @@
   border-bottom: 4px solid #5ece7b;
 }
 
-/* Center: Logo */
-.navbar-logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
 .navbar-logo a {
   text-decoration: none;
-  color: #111;
+  display: flex;
+  align-items: center;
 }
 
 /* Right side: Currency picker and cart */
@@ -57,48 +52,71 @@
   gap: 16px;
 }
 
-.currency-selector {
-  padding: 6px 12px;
-  font-size: 1.1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-  appearance: none; /* removes default arrow on some browsers */
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 10px;
-  padding-right: 32px;
-  cursor: pointer;
+.currency-selector-wrapper {
+  position: relative;
+  width: 60px;
+  height: 36px;
 }
 
-/* Optional: make sure the dropdown opens normally */
+.currency-selector {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
 .currency-selector option {
-  font-size: 1rem;
+  background-color: white;
+  width: 200px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #333;
+  border-radius: 0;
+}
+
+.currency-display {
+  font-family: "Roboto", sans-serif;
+
+  font-size: 18px;
+  font-weight: 400;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
 }
 
 /* Cart icon */
 .cart-icon {
-  font-size: 1.4rem;
-  color: #333;
+  width: 20px;
+  height: 18px;
   cursor: pointer;
   transition: color 0.2s ease;
-}
-
-.cart-icon {
-  width: 30px;
-  height: 30px;
   position: relative;
 }
-
 .cart-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: red;
-  color: white;
+  top: -10px; /* tweak as needed */
+  right: -10px; /* tweak as needed */
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  color: #ffffff;
   border-radius: 50%;
-  padding: 3px 7px;
-  font-size: 12px;
-  font-weight: bold;
-  pointer-events: none; /* so badge doesn’t block clicks */
+
+  font-family: "Roboto", sans-serif;
+
+  font-size: 14px;
+  font-weight: 700;
+  pointer-events: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
