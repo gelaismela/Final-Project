@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/ShippingInfo.css";
-import leafImg from "../photos/leaf.png";
 import CheckoutTracker from "../hooks/CheckoutTracker";
 import { useCheckout } from "../context/CheckoutContext";
 import OrderSummary from "./OrderSummary";
 
+/**
+ * ShippingInfo component
+ * Collects and validates shipping/contact information.
+ */
 function ShippingInfo() {
   const navigate = useNavigate();
   const { setCheckoutInfo } = useCheckout();
 
+  // Form state for shipping/contact info
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +27,7 @@ function ShippingInfo() {
     shippingNote: "",
   });
 
+  // Validation error state
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -34,6 +39,7 @@ function ShippingInfo() {
     city: "",
   });
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -42,6 +48,7 @@ function ShippingInfo() {
     }));
   };
 
+  // Validate form fields
   const validateForm = () => {
     let isValid = true;
     const Errors = {};
@@ -84,11 +91,12 @@ function ShippingInfo() {
     return isValid;
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      navigate("/ShippingMethod");
-      setCheckoutInfo(formData);
+      setCheckoutInfo(formData); // Save info to context
+      navigate("/ShippingMethod"); // Go to next step
     } else {
       console.log("Validation failed", errors, formData);
     }
@@ -97,10 +105,12 @@ function ShippingInfo() {
   return (
     <div className="checkout-page">
       <div className="shipping-section">
+        {/* Checkout progress tracker */}
         <nav className="checkout-tracker">
           <CheckoutTracker />
         </nav>
         <form onSubmit={handleSubmit} className="shipping-form">
+          {/* Contact section */}
           <div className="contact-section">
             <h2>Contact</h2>
             <div className="form-row">
@@ -121,9 +131,9 @@ function ShippingInfo() {
             </div>
           </div>
 
+          {/* Shipping address section */}
           <div className="shipping-address-section">
             <h2>Shipping Address</h2>
-
             <div className="form-row">
               <div className="form-group">
                 <input
@@ -139,7 +149,6 @@ function ShippingInfo() {
                   <div className="error-message">{errors.firstName}</div>
                 )}
               </div>
-
               <div className="form-group">
                 <input
                   type="text"
@@ -155,7 +164,6 @@ function ShippingInfo() {
                 )}
               </div>
             </div>
-
             <div className="form-group">
               <input
                 type="text"
@@ -170,7 +178,6 @@ function ShippingInfo() {
                 <div className="error-message">{errors.address}</div>
               )}
             </div>
-
             <div className="form-group">
               <textarea
                 id="shippingNote"
@@ -180,7 +187,6 @@ function ShippingInfo() {
                 placeholder="Shipping note (optional)"
               />
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <input
@@ -196,7 +202,6 @@ function ShippingInfo() {
                   <div className="error-message">{errors.city}</div>
                 )}
               </div>
-
               <div className="form-group">
                 <input
                   type="text"
@@ -211,7 +216,6 @@ function ShippingInfo() {
                   <div className="error-message">{errors.postalCode}</div>
                 )}
               </div>
-
               <div className="form-group">
                 <select
                   id="province"
@@ -219,7 +223,6 @@ function ShippingInfo() {
                   value={formData.province}
                   onChange={handleChange}
                 >
-                  <label>Province</label>
                   <option value=""> Province</option>
                   <option value="Imereti">Imereti</option>
                   <option value="Samegrelo">Samegrelo</option>
@@ -227,7 +230,6 @@ function ShippingInfo() {
                 </select>
               </div>
             </div>
-
             <div className="form-group">
               <select
                 id="country"
@@ -244,7 +246,6 @@ function ShippingInfo() {
                 <div className="error-message">{errors.country}</div>
               )}
             </div>
-
             <div className="save-info">
               <label>
                 <input
@@ -258,6 +259,7 @@ function ShippingInfo() {
             </div>
           </div>
 
+          {/* Form actions */}
           <div className="form-actions">
             <button
               type="button"
@@ -272,6 +274,7 @@ function ShippingInfo() {
           </div>
         </form>
       </div>
+      {/* Order summary sidebar */}
       <OrderSummary />
     </div>
   );

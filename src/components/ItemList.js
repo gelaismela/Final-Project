@@ -1,23 +1,29 @@
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import { useCurrency } from "../context/CurrencyContext";
-import { useCartContext } from "../context/CartContext"; // 1. Import cart context
+import { useCartContext } from "../context/CartContext";
 
+// Currency conversion data
 const currencyData = {
   usd: { symbol: "$", rate: 1 },
   eur: { symbol: "€", rate: 0.92 },
   gel: { symbol: "₾", rate: 2.7 },
 };
 
+// Helper to convert price to selected currency
 function convertPrice(price, currency) {
   const { rate } = currencyData[currency] || currencyData.usd;
   return price * rate;
 }
 
+/**
+ * Renders a list of product cards.
+ * @param {Array} products - Array of product objects to display.
+ */
 const ItemList = ({ products }) => {
   const { currency } = useCurrency();
   const symbol = currencyData[currency]?.symbol || "$";
-  const { addItem } = useCartContext(); // 2. Use addItem from context
+  const { addItem } = useCartContext();
 
   return (
     <div className="product-list">
@@ -28,6 +34,7 @@ const ItemList = ({ products }) => {
           }`}
           key={product.id}
         >
+          {/* Product image and details link */}
           <Link to={`/products/${product.id}`}>
             <img
               src={product.photo}
@@ -43,17 +50,20 @@ const ItemList = ({ products }) => {
             </div>
           </Link>
 
+          {/* Out of stock label */}
           {product.quantity === 0 && (
             <div className="out-of-stock-label">Out of Stock</div>
           )}
 
+          {/* Add to cart button (only if in stock) */}
           {product.quantity > 0 && (
             <button
               className="add-to-cart-btn"
               onClick={() => {
-                addItem(product.id, 1); // 3. Use global addItem
+                addItem(product.id, 1);
               }}
             >
+              {/* Cart icon SVG */}
               <svg
                 width="20"
                 height="19"

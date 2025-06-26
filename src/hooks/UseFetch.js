@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Custom hook for fetching data from an API.
+ * Handles loading, error, and cleanup on unmount.
+ * @param {string} url - The API endpoint to fetch.
+ */
 const useFetch = (url) => {
-  const [data, setData] = useState(null);
-  const [isPending, setIsPending] = useState(true);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState(null); // Fetched data
+  const [isPending, setIsPending] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
   useEffect(() => {
-    const abortCont = new AbortController();
+    const abortCont = new AbortController(); // For aborting fetch on unmount
 
     setTimeout(() => {
       fetch(url, { signal: abortCont.signal })
@@ -30,11 +35,13 @@ const useFetch = (url) => {
             setError(err.message);
           }
         });
-    }, 1000);
+    }, 1000); // Simulate network delay
 
-    return () => abortCont.abort(); // cleanup
+    // Cleanup: abort fetch if component unmounts
+    return () => abortCont.abort();
   }, [url]);
 
+  // Return data, loading, and error states
   return { data, isPending, error };
 };
 

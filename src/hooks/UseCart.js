@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Custom hook for cart logic.
+ * Handles fetching, adding, and deleting cart items from the API.
+ * @param {string} apiUrl - The base URL for the API.
+ */
 const useCart = (apiUrl) => {
+  // State for cart items and error messages
   const [cartItems, setCartItems] = useState([]);
   const [error, setError] = useState(null);
 
+  // Fetch the cart from the API
   const fetchCart = async () => {
     try {
       const res = await fetch(`${apiUrl}/cart`);
@@ -15,6 +22,7 @@ const useCart = (apiUrl) => {
     }
   };
 
+  // Add an item to the cart
   const addItem = async (productId, quantity = 1) => {
     try {
       const res = await fetch(`${apiUrl}/cart`, {
@@ -29,6 +37,7 @@ const useCart = (apiUrl) => {
     }
   };
 
+  // Delete an item from the cart
   const deleteItem = async (cartItemId) => {
     try {
       const res = await fetch(`${apiUrl}/cart/${cartItemId}`, {
@@ -41,12 +50,15 @@ const useCart = (apiUrl) => {
     }
   };
 
+  // Fetch cart on mount
   useEffect(() => {
     fetchCart();
   }, []);
 
+  // Calculate total quantity of items in the cart
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Expose cart state and actions
   return { cartItems, cartCount, error, addItem, deleteItem };
 };
 

@@ -8,12 +8,15 @@ import infoImg from "../photos/i.png";
 import lockImg from "../photos/lock.png";
 import OrderSummary from "./OrderSummary";
 
-// ...
-// <-- Import your summary component
-
+/**
+ * PaymentPage component
+ * Handles payment form, validation, and shows order summary.
+ */
 function PaymentPage() {
   const navigate = useNavigate();
   const { checkoutInfo } = useCheckout();
+
+  // Payment form state
   const [fields, setFields] = useState({
     cardNumber: "",
     holderName: "",
@@ -23,14 +26,17 @@ function PaymentPage() {
   const [errors, setErrors] = useState({});
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+  // Prepare summary info
   const contact = checkoutInfo.email;
   const address = `${checkoutInfo.address}, ${checkoutInfo.postalCode}, ${checkoutInfo.city}, ${checkoutInfo.province} ${checkoutInfo.country}`;
   const method = checkoutInfo.shippingMethod || "Standard Shipping - FREE";
 
+  // Handle input changes
   const handleChange = (e) => {
     setFields({ ...fields, [e.target.name]: e.target.value });
   };
 
+  // Validate and handle payment form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
@@ -65,6 +71,7 @@ function PaymentPage() {
 
     setErrors(newErrors);
 
+    // If no errors, show payment confirmation
     if (Object.keys(newErrors).length === 0) {
       setPaymentSuccess(true);
     }
@@ -73,10 +80,12 @@ function PaymentPage() {
   return (
     <div className="checkout-page">
       <div className="checkout-main">
+        {/* Checkout progress tracker */}
         <nav className="checkout-tracker">
           <CheckoutTracker />
         </nav>
         {paymentSuccess ? (
+          // Payment confirmation section
           <div className="confirmation-section">
             <div className="confirmation-content">
               <img
@@ -97,7 +106,9 @@ function PaymentPage() {
             </div>
           </div>
         ) : (
+          // Payment form section
           <div className="shipping-section">
+            {/* Shipping/contact summary */}
             <div className="shipping-summary-box">
               <div>
                 <span style={{ color: "#888" }}>Contact</span>
@@ -120,6 +131,7 @@ function PaymentPage() {
                 <span className="payment-method-title">Credit Card</span>
               </div>
               <div className="payment-fields">
+                {/* Card number input */}
                 <div className="payment-field with-icon">
                   <input
                     type="text"
@@ -138,6 +150,7 @@ function PaymentPage() {
                     <div className="error-message">{errors.cardNumber}</div>
                   )}
                 </div>
+                {/* Holder name input */}
                 <div className="payment-field">
                   <input
                     type="text"
@@ -151,6 +164,7 @@ function PaymentPage() {
                     <div className="error-message">{errors.holderName}</div>
                   )}
                 </div>
+                {/* Expiration and CVV inputs */}
                 <div className="payment-field-row">
                   <div className="payment-field">
                     <input
@@ -185,6 +199,7 @@ function PaymentPage() {
                   </div>
                 </div>
               </div>
+              {/* Form actions */}
               <div className="form-actions">
                 <button
                   type="button"
@@ -201,7 +216,7 @@ function PaymentPage() {
           </div>
         )}
       </div>
-      {/* Use your reusable summary component */}
+      {/* Order summary sidebar */}
       <OrderSummary
         showShipping={true}
         shippingCost={checkoutInfo.shippingCost || 0}

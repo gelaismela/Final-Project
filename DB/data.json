@@ -70,88 +70,8 @@
   ],
   "cart": [
     {
-      "id": "7c26",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "2a80",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "e700",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "f386",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "9526",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "e6e0",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "794b",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "6ff3",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "98c1",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "cd72",
-      "productId": "3",
-      "quantity": 1
-    },
-    {
-      "id": "d0ee",
-      "productId": "3",
-      "quantity": 1
-    },
-    {
-      "id": "85e6",
-      "productId": "1",
-      "quantity": 1
-    },
-    {
-      "id": "d499",
-      "productId": "5",
-      "quantity": 1
-    },
-    {
-      "id": "b1dc",
+      "id": "9b92",
       "productId": "4",
-      "quantity": 1
-    },
-    {
-      "id": "f062",
-      "productId": "3",
-      "quantity": 1
-    },
-    {
-      "id": "9d9b",
-      "productId": "3",
-      "quantity": 1
-    },
-    {
-      "id": "c43a",
-      "productId": "3",
       "quantity": 1
     }
   ]

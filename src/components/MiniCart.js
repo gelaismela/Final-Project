@@ -2,38 +2,48 @@ import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import useFetch from "../hooks/UseFetch";
 import "../styles/MiniCart.css";
-import "../components/Cart";
 import { useCurrency } from "../context/CurrencyContext";
-import { useCartContext } from "../context/CartContext"; // 1. Import context
+import { useCartContext } from "../context/CartContext";
 
-// 2. Currency symbol and conversion helpers
+// Currency conversion data
 const currencyData = {
   usd: { symbol: "$", rate: 1 },
   eur: { symbol: "€", rate: 0.92 },
   gel: { symbol: "₾", rate: 2.7 },
 };
 
+// Helper to convert price to selected currency
 function convertPrice(price, currency) {
   const { rate } = currencyData[currency] || currencyData.usd;
   return price * rate;
 }
 
+/**
+ * MiniCart component - shows a dropdown summary of the cart.
+ * @param {boolean} open - Whether the mini cart is open.
+ * @param {function} onClose - Function to close the mini cart.
+ */
 const MiniCart = ({ open, onClose }) => {
   const apiUrl = "http://localhost:8000";
-  const { cartItems, cartCount, addItem, deleteItem } = useCartContext(); // <-- Use context here
+  // Get cart state and actions from context
+  const { cartItems, cartCount, addItem, deleteItem } = useCartContext();
+  // Fetch all products for details
   const { data: products, isPending } = useFetch(`${apiUrl}/products`);
   const navigate = useNavigate();
   const [selectedSizes, setSelectedSizes] = useState({});
   const { currency } = useCurrency();
   const symbol = currencyData[currency]?.symbol || "$";
 
+  // Show nothing while loading
   if (isPending || !products || !cartItems) return null;
 
+  // Group cart items by productId and sum quantities
   const grouped = cartItems.reduce((acc, item) => {
     acc[item.productId] = (acc[item.productId] || 0) + item.quantity;
     return acc;
   }, {});
 
+  // Merge cart items with product details
   const cartWithDetails = Object.entries(grouped)
     .map(([productId, quantity]) => {
       const product = products.find((p) => p.id === productId);
@@ -51,6 +61,7 @@ const MiniCart = ({ open, onClose }) => {
     .reduce((sum, item) => sum + convertPrice(item.total, currency), 0)
     .toFixed(2);
 
+  // Handle size selection for each product (if needed)
   const handleSizeClick = (productId, size) => {
     setSelectedSizes((prev) => ({
       ...prev,
@@ -60,12 +71,15 @@ const MiniCart = ({ open, onClose }) => {
 
   return (
     <div className={`mini-cart-dropdown${open ? " open" : ""}`}>
+      {/* Mini cart header */}
       <div className="mini-cart-header">
         <strong>My Bag, {cartCount} items</strong>
         <button className="mini-cart-close" onClick={onClose}>
           ×
         </button>
       </div>
+
+      {/* List all cart items */}
       <div className="mini-cart-items">
         {cartWithDetails.map((item) => (
           <div className="mini-cart-item" key={item.id}>
@@ -93,6 +107,7 @@ const MiniCart = ({ open, onClose }) => {
                 </div>
               </div>
             </div>
+            {/* Quantity controls and product image */}
             <div className="mini-cart-item-preview">
               <div className="mini-cart-quantity-controls">
                 <button onClick={() => addItem(item.id, 1)}>+</button>
@@ -114,6 +129,7 @@ const MiniCart = ({ open, onClose }) => {
         ))}
       </div>
 
+      {/* Mini cart footer: total and navigation buttons */}
       <div className="mini-cart-footer">
         <div className="mini-cart-total">
           <span>Total:</span>

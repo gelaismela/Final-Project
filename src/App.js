@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Home from "./Home";
 import SingleItemPage from "./components/ItemPage";
-import Checkout from "./components/Checkout";
+
 import Cart from "./components/Cart";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import { CartProvider } from "./context/CartContext";
@@ -27,7 +27,6 @@ function App() {
                   <Route path="/" element={<Navigate to="/category/women" />} />
                   <Route path="/category/:gender" element={<Home />} />
                   <Route path="/products/:id" element={<SingleItemPage />} />
-                  <Route path="/checkout" element={<Checkout />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="shippingInfo" element={<ShippingInfo />} />
                   <Route path="/shippingMethod" element={<ShippingMethod />} />
